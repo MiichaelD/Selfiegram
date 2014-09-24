@@ -9,6 +9,7 @@ import android.content.Context;
 
 public class JSonParser {
 
+	@SuppressWarnings("unused")
 	private static final String
 					PAGINATION="pagination", NEXT_MAX_TAG = "next_max_tag_id",
 					MIN_TAG = "min_tag_id",
