@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.webs.itmexicali.selfiegram.MainAct" >
     
-	<ListView
+	<!-- ListView
 	    android:id="@+id/in"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
@@ -16,7 +16,18 @@
 	    android:layout_margin="2dp"
 	    android:contentDescription="@string/loading_selfie_msg"
 	    android:stackFromBottom="false"
-	    android:transcriptMode="alwaysScroll" />
+	    android:transcriptMode="alwaysScroll" /-->
+	    
+	<GridView
+	    android:id="@+id/in"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" 
+	    android:numColumns="auto_fit"
+	    android:layout_margin="2dp"
+	    android:gravity="center"
+	    android:contentDescription="@string/loading_selfie_msg"
+	    android:columnWidth="100dp"
+	    android:stretchMode="columnWidth"/>
     
 </LinearLayout>
 

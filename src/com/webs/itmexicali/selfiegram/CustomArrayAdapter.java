@@ -55,15 +55,15 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
           
           viewHolder = new ViewHolder();
           viewHolder.img = (ImageView) convertView;
-          viewHolder.img.setImageBitmap(BitmapLoader.getImage(ctx,
-        		  big?R.drawable.loading_big:R.drawable.loading_small,
-        		  true));
           convertView.setTag(viewHolder);
        } else {
     	   //if it was already reused 
            viewHolder = (ViewHolder) convertView.getTag();
        }
-       
+       // We change to a loding image bitmap, so it doesn't look like repeated images
+       viewHolder.img.setImageBitmap(BitmapLoader.getImage(ctx,
+     		  big?R.drawable.loading_big:R.drawable.loading_small,
+     		  true));
        viewHolder.position = position;
        
        // Populate the data into the template view using the data object       

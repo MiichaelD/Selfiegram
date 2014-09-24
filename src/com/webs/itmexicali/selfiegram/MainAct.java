@@ -10,11 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 
 public class MainAct extends Activity {
 
-	private ListView mListView;
+	private GridView mDisplayingView;
 	
 	//Array adapter for the Result thread
     private CustomArrayAdapter mCustArrAdap;
@@ -45,9 +45,9 @@ public class MainAct extends Activity {
 	    */
 		mCustArrAdap = new CustomArrayAdapter(this, R.layout.image_view);
 		
-		mListView = (ListView) findViewById(R.id.in);
-		mListView.setAdapter(mCustArrAdap);
-		mListView.setOnItemClickListener(new OnItemClickListener(){
+		mDisplayingView = (GridView) findViewById(R.id.in);
+		mDisplayingView.setAdapter(mCustArrAdap);
+		mDisplayingView.setOnItemClickListener(new OnItemClickListener(){
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 				Intent intent = new Intent(MainAct.this, DetailAct.class)
@@ -56,7 +56,7 @@ public class MainAct extends Activity {
 			}		
 		});
 		
-		mListView.setOnScrollListener(new EndlessScrollListener(){
+		mDisplayingView.setOnScrollListener(new EndlessScrollListener(){
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
 				Log.d(MainAct.class.getSimpleName(),"Loading new data!!!");
