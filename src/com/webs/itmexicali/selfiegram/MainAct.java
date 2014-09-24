@@ -1,6 +1,7 @@
 package com.webs.itmexicali.selfiegram;
 
 
+import com.webs.itmexicali.selfiegram.draggable.DynamicListView;
 import com.webs.itmexicali.selfiegram.utils.JSonParser;
 import com.webs.itmexicali.selfiegram.utils.ServerConn;
 
@@ -15,11 +16,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
-import android.widget.GridView;
-
 public class MainAct extends Activity {
 
-	private GridView mDisplayingView;
+	private DynamicListView mDisplayingView;
 	
 	//Array adapter for the Result thread
     private CustomArrayAdapter mCustArrAdap;
@@ -50,7 +49,7 @@ public class MainAct extends Activity {
 	    */
 		mCustArrAdap = new CustomArrayAdapter(this, R.layout.image_view);
 		
-		mDisplayingView = (GridView) findViewById(R.id.in);
+		mDisplayingView = (DynamicListView) findViewById(R.id.in);
 		mDisplayingView.setAdapter(mCustArrAdap);
 		mDisplayingView.setOnItemClickListener(new OnItemClickListener(){
 			@Override

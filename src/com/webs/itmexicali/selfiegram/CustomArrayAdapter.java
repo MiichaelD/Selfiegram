@@ -1,5 +1,8 @@
 package com.webs.itmexicali.selfiegram;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.webs.itmexicali.selfiegram.utils.BitmapLoader;
 
 import android.content.Context;
@@ -18,7 +21,11 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
 
 	int res_id;
 	Context ctx;
-	String[] data;
+	ArrayList<String> data = new ArrayList<String>();
+	
+	
+	 final int INVALID_ID = -1;
+	 HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();	
 	
 	public CustomArrayAdapter(Context context, int resource) {
 		super(context, resource);
@@ -30,7 +37,7 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
 		super(context, resource, arr);
 		ctx = context;
 		res_id = resource;
-		data = arr;
+		add(arr);
 	}
 	
 	public void add(String[] args){
@@ -41,11 +48,52 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
 		}
 	}
 	
+	@Override 
+	public void add(String object){
+		super.add(object);
+		mIdMap.put(object,data.size());
+		data.add(object);
+	}
+	
+	@Override 
+	public String getItem(int position){
+		return data.get(position);
+	}
+	
+	public void swap(int pos1, int pos2){
+		String temp = getItem(pos1);
+		data.set(pos1, getItem(pos2));
+		data.set(pos2,temp);
+	}
+	
+	private boolean vadilatePosition(int i){
+		return i>=0 && i < getCount();
+	} 
+	
+	@Override
+    public long getItemId(int position) {
+        if (!vadilatePosition(position)) {
+            return INVALID_ID;
+        }
+        String item = getItem(position);
+        return mIdMap.get(item);
+    }
+
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+	
+	@Override
+	public int getCount(){
+		//return super.getCount();
+		return data.size();
+	}
 	
 	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
        // Get the data item for this position
-		final String result = getItem(position);   
+		final String result = getItem(position);
 		
 		final boolean big = position % 3 == 0;
 		
