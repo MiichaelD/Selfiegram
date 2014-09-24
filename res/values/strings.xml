@@ -3,7 +3,7 @@
 
     <string name="app_name">Selfiegram</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_load">Load more Selfies</string>
     <string name="loading_selfie_msg">Loading #Selfie from Instagram</string>
 
     

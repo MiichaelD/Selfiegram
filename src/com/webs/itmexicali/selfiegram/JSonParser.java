@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 
 public class JSonParser {
 
@@ -15,7 +17,7 @@ public class JSonParser {
 					STD_R="standard_resolution"; 
 	
 	
-	public static String[] getURLs(String JSon){
+	public static String[] getURLs(Context context, String JSon){
 		JSONObject res;
 		String[] dataOutput = null;
 		try {

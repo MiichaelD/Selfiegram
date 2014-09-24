@@ -20,8 +20,11 @@ public class ImageDownloaderTask extends AsyncTask<String, Integer, Bitmap> {
 		this.position = position;
 	}
 	
+	ImageDownloaderTask(Context context){
+		ctx = context;
+	}
+	
     protected Bitmap doInBackground(String... urls) {
-
     	Bitmap bp;
     	if(urls[1] != null)
   	   		bp = BitmapLoader.resizeImage(ctx, urls[0], true, BIG_SIZE, BIG_SIZE);
@@ -31,7 +34,9 @@ public class ImageDownloaderTask extends AsyncTask<String, Integer, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-    	if(position == viewHolder.position)
-    		viewHolder.img.setImageBitmap(result);
+    	if(viewHolder != null){
+	    	if(position == viewHolder.position)
+	    		viewHolder.img.setImageBitmap(result);
+    	}
     }
 }

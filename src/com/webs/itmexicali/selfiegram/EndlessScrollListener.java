@@ -11,7 +11,8 @@ import android.widget.AbsListView.OnScrollListener;
  *  After a few tries I decided implementing this abstract class from:
  *  https://github.com/thecodepath/android_guides/wiki/Endless-Scrolling-with-AdapterViews
  *  
- *  I liked it :) */
+ *  I get the same results as my implementation, the scroll gets stucks at the bottom
+ *  provocating to load and load and load more views. */
 
 public abstract class EndlessScrollListener implements OnScrollListener {
     // The minimum amount of items to have below your current scroll position

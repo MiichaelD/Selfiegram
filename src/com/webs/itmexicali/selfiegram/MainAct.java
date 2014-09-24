@@ -62,7 +62,7 @@ public class MainAct extends Activity {
 			@Override
 			public void onLoadMore(int page, int totalItemsCount) {
 				Log.d(MainAct.class.getSimpleName(),"Loading new data!!!");
-				new StartFetching().execute();			
+				//new StartFetching().execute();			
 			}
 			
 		});
@@ -85,8 +85,11 @@ public class MainAct extends Activity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			mCustArrAdap.add("http://images.medicaldaily.com/sites/medicaldaily.com/files/styles/large/public/2014/04/11/woman-taking-selfie-herself.jpg");
+		if (id == R.id.action_load) {
+			//mCustArrAdap.add("http://images.medicaldaily.com/sites/medicaldaily.com/files/styles/large/public/2014/04/11/woman-taking-selfie-herself.jpg");
+			Log.d(MainAct.class.getSimpleName(),"Loading new data!!!");
+			new StartFetching().execute();
+			
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -150,10 +153,11 @@ public class MainAct extends Activity {
 
 		@Override
 	    protected void onPostExecute(String result) {
-	    	String[] urls = JSonParser.getURLs(result);
+	    	String[] urls = JSonParser.getURLs(MainAct.this,result);
 			mCustArrAdap.add(urls);
 	    }
     }
+
     
     public static void updateNextUrl(String query){
     	Next_Input_Url = query;
