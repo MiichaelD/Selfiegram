@@ -11,15 +11,13 @@ public class ImageDownloaderTask extends AsyncTask<String, Integer, Bitmap> {
 	private static final int BIG_SIZE = 306, SMALL_SIZE = 150;
 	
 	Context ctx = null;
-	boolean pBig;
+	int position;
 	CustomArrayAdapter.ViewHolder viewHolder = null;
 	
-	public void setContext(Context context){
-		ctx= context;
-	}
-	
-	public void setViewHolder(CustomArrayAdapter.ViewHolder vh){
-		viewHolder=vh;
+	ImageDownloaderTask(Context context, CustomArrayAdapter.ViewHolder vh, int position){
+		ctx = context;
+		viewHolder = vh;
+		this.position = position;
 	}
 	
     protected Bitmap doInBackground(String... urls) {
@@ -33,6 +31,7 @@ public class ImageDownloaderTask extends AsyncTask<String, Integer, Bitmap> {
     }
 
     protected void onPostExecute(Bitmap result) {
-    	viewHolder.img.setImageBitmap(result);
+    	if(position == viewHolder.position)
+    		viewHolder.img.setImageBitmap(result);
     }
 }

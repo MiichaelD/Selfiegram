@@ -1,13 +1,17 @@
 package com.webs.itmexicali.selfiegram;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 public class MainAct extends Activity {
@@ -17,7 +21,15 @@ public class MainAct extends Activity {
 	//Array adapter for the Result thread
     private CustomArrayAdapter mCustArrAdap;
 	
-    private static final String IMG_VIEW_KEY = "img_on_view";
+    public static final String IMG_VIEW_KEY = "img_on_view";
+    
+    
+    public static final String
+    	INSTAGRAM_CLIENT_ID="959d4a88f41a4eeaa52dc67238d3de4b",
+		Default_Input_Url ="https://api.instagram.com/v1/tags/selfie/media/recent?client_id="+INSTAGRAM_CLIENT_ID;
+    
+    public static String
+    		Next_Input_Url = null;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +49,23 @@ public class MainAct extends Activity {
 		
 		mListView = (ListView) findViewById(R.id.in);
 		mListView.setAdapter(mCustArrAdap);
+		mListView.setOnItemClickListener(new OnItemClickListener(){
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+				Intent intent = new Intent(MainAct.this, DetailAct.class)
+                .putExtra(IMG_VIEW_KEY, mCustArrAdap.getItem(position));
+				startActivity(intent);
+			}		
+		});
+		
+		mListView.setOnScrollListener(new EndlessScrollListener(){
+			@Override
+			public void onLoadMore(int page, int totalItemsCount) {
+				Log.d(MainAct.class.getSimpleName(),"Loading new data!!!");
+				new StartFetching().execute();			
+			}
+			
+		});
 		
 		
 		if(savedInstanceState == null)
@@ -108,9 +137,9 @@ public class MainAct extends Activity {
 	    protected String doInBackground(Void... params) {
     		String inputJson = null;
 	    	try {
-	    		String client_id = getString(R.string.instagram_client_id);
 				//inputJson = ServerConn.getResponse("http://yo-t.besaba.com/instagram_json.html");
-	    		inputJson = ServerConn.getResponse("https://api.instagram.com/v1/tags/selfie/media/recent?client_id="+client_id);
+	    		inputJson = ServerConn.getResponse(
+	    				Default_Input_Url + (Next_Input_Url==null? "" : Next_Input_Url) );
 				System.out.println("Response; chars: "+inputJson.length()+"\nText: "+inputJson);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -124,6 +153,11 @@ public class MainAct extends Activity {
 	    	String[] urls = JSonParser.getURLs(result);
 			mCustArrAdap.add(urls);
 	    }
+    }
+    
+    public static void updateNextUrl(String query){
+    	Next_Input_Url = query;
+    	Log.i(MainAct.class.getSimpleName(),"new Url Limiters:"+Next_Input_Url);
     }
 	
 }

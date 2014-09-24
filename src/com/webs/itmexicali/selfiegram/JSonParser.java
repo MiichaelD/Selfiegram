@@ -8,6 +8,8 @@ import org.json.JSONObject;
 public class JSonParser {
 
 	private static final String
+					PAGINATION="pagination", NEXT_MAX_TAG = "next_max_tag_id",
+					MIN_TAG = "min_tag_id",
 					DATA="data", IMAGES="images", URL = "url",
 					LOW_R="low_resolution",		TMB_R="thumbnail",
 					STD_R="standard_resolution"; 
@@ -18,6 +20,17 @@ public class JSonParser {
 		String[] dataOutput = null;
 		try {
 			res = new JSONObject(JSon);
+			JSONObject pagination = res.getJSONObject(PAGINATION);
+			String max_tag_id = pagination.getString(NEXT_MAX_TAG);
+			String min_tag_id = null;
+			try{//Sometimes this string is not contained in the json
+				min_tag_id = pagination.getString(MIN_TAG);
+			}catch(Exception e){}
+			
+			MainAct.updateNextUrl("&max_tag_id="+max_tag_id+
+					(min_tag_id==null?"":"&min_tag_id="+min_tag_id) );
+			
+			
 			JSONArray data = res.getJSONArray(DATA);
 			
 			int data_length = data.length();

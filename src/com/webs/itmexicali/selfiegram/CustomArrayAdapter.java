@@ -63,10 +63,11 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
     	   //if it was already reused 
            viewHolder = (ViewHolder) convertView.getTag();
        }
+       
+       viewHolder.position = position;
+       
        // Populate the data into the template view using the data object       
-       ImageDownloaderTask idt = new ImageDownloaderTask();
-       idt.setContext(ctx);
-       idt.setViewHolder(viewHolder);
+       ImageDownloaderTask idt = new ImageDownloaderTask(ctx, viewHolder, position);
        idt.execute(result,big?"BIG":null);
        
        // Return the completed view to render on screen
@@ -78,6 +79,7 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
 	 * ListView considerably by caching view lookups for smoother, faster loading:*/
 	static class ViewHolder{
 		ImageView img;
+		int position;
 	}
 
 }
