@@ -1,5 +1,7 @@
 package com.webs.itmexicali.selfiegram;
 
+import com.webs.itmexicali.selfiegram.utils.BitmapLoader;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;

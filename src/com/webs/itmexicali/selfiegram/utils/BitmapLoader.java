@@ -1,7 +1,10 @@
-package com.webs.itmexicali.selfiegram;
+package com.webs.itmexicali.selfiegram.utils;
 
 import java.io.InputStream;
 import java.util.HashMap;
+
+import com.webs.itmexicali.selfiegram.R;
+import com.webs.itmexicali.selfiegram.R.drawable;
 
 import android.content.Context;
 import android.graphics.Bitmap;

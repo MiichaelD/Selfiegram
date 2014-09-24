@@ -1,8 +1,10 @@
-package com.webs.itmexicali.selfiegram;
+package com.webs.itmexicali.selfiegram.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.webs.itmexicali.selfiegram.MainAct;
 
 import android.content.Context;
 

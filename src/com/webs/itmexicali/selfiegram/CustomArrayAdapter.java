@@ -1,5 +1,7 @@
 package com.webs.itmexicali.selfiegram;
 
+import com.webs.itmexicali.selfiegram.utils.BitmapLoader;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

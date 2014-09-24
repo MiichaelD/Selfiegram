@@ -1,4 +1,4 @@
-package com.webs.itmexicali.selfiegram;
+package com.webs.itmexicali.selfiegram.utils;
 //http://stackoverflow.com/questions/2793150/how-to-use-java-net-urlconnection-to-fire-and-handle-http-requests
 
 import java.util.Scanner;

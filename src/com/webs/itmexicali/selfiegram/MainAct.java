@@ -1,5 +1,9 @@
 package com.webs.itmexicali.selfiegram;
 
+
+import com.webs.itmexicali.selfiegram.utils.JSonParser;
+import com.webs.itmexicali.selfiegram.utils.ServerConn;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+
 import android.widget.GridView;
 
 public class MainAct extends Activity {
