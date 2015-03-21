@@ -37,10 +37,10 @@ public class ServerConn{
 	 * @return an HttpURLConnection or null if there is no network available	 */	
 	public static HttpURLConnection Connect(int mMethod, String mUrl, String query)throws Exception{
 
-		if ( !mUrl.startsWith("http://"))
+		if ( !(mUrl.startsWith("http://") || mUrl.startsWith("https://")) )
 			mUrl = "http://" + mUrl;
 			
-		Log.v(TAG,"Opening Connection("+mMethod+") to url: "+mUrl+"?"+query);
+		Log.v(TAG,"Opening Connection("+mMethod+") to url: "+mUrl+" with params:"+query);
 			
 		
 		//query = URLEncoder.encode(query,"UTF-8");
@@ -97,7 +97,7 @@ public class ServerConn{
 	}
 
 
-	/**Connect to a server by its URL using GET method, obviously the URL
+	/**Connect to a server by its URL using GET method, the URL
 	 * should have the necessary query parameters included.
 	 * @param mUrl servers URL
 	 * @return a string containing the servers response or null if no network is available
@@ -108,7 +108,7 @@ public class ServerConn{
 		String response = null;
 		try {
 			conn = Connect(metGET,  mUrl, null);
-			getResponse(conn);
+			response = getResponse(conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

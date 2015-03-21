@@ -21,7 +21,7 @@ public class JSonParser {
 	
 	
 	public static String[] getURLs(Context context, String JSon){
-		JSONObject res;
+		JSONObject res = null;
 		String[] dataOutput = null;
 		try {
 			res = new JSONObject(JSon);
@@ -32,10 +32,12 @@ public class JSonParser {
 				min_tag_id = pagination.getString(MIN_TAG);
 			}catch(Exception e){}
 			
-			MainAct.updateNextUrl("&max_tag_id="+max_tag_id+
-					(min_tag_id==null?"":"&min_tag_id="+min_tag_id) );
-			
-			
+			MainAct.updateNextUrl("&max_tag_id="+max_tag_id+ (min_tag_id==null?"":"&min_tag_id="+min_tag_id) );
+		}catch (Exception e){
+			MainAct.updateNextUrl(null);
+			android.util.Log.e(JSonParser.class.getSimpleName(),e.getLocalizedMessage());
+		}
+		try{	
 			JSONArray data = res.getJSONArray(DATA);
 			
 			int data_length = data.length();

@@ -31,8 +31,7 @@ public class MainAct extends Activity {
     	INSTAGRAM_CLIENT_ID="959d4a88f41a4eeaa52dc67238d3de4b",
 		Default_Input_Url ="https://api.instagram.com/v1/tags/selfie/media/recent?client_id="+INSTAGRAM_CLIENT_ID;
     
-    public static String
-    		Next_Input_Url = null;
+    public static String Next_Input_Url = null;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -144,9 +143,8 @@ public class MainAct extends Activity {
     		String inputJson = null;
 	    	try {
 				//inputJson = ServerConn.getResponse("http://yo-t.besaba.com/instagram_json.html");
-	    		inputJson = ServerConn.getResponse(
-	    				Default_Input_Url + (Next_Input_Url==null? "" : Next_Input_Url) );
-				System.out.println("Response; chars: "+inputJson.length()+"\nText: "+inputJson);
+	    		inputJson = ServerConn.getResponse( Default_Input_Url + (Next_Input_Url==null? "" : Next_Input_Url) );
+				Log.v(MainAct.class.getSimpleName(),"Response; chars: "+inputJson.length()+"\nText: "+inputJson);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -156,7 +154,9 @@ public class MainAct extends Activity {
 
 		@Override
 	    protected void onPostExecute(String result) {
-	    	String[] urls = JSonParser.getURLs(MainAct.this,result);
+			if(result == null)
+				return; // display an error message maybe ?
+	    	String[] urls = JSonParser.getURLs(MainAct.this, result);
 			mCustArrAdap.add(urls);
 	    }
     }
