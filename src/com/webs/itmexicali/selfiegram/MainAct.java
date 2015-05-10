@@ -161,7 +161,7 @@ public class MainAct extends Activity {
 	    }
     }
 
-    
+    /* Keep pagination when loading more selfies */
     public static void updateNextUrl(String query){
     	Next_Input_Url = query;
     	Log.i(MainAct.class.getSimpleName(),"new Url Limiters:"+Next_Input_Url);
