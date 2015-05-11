@@ -5,6 +5,7 @@ import com.webs.itmexicali.selfiegram.utils.JSonParser;
 import com.webs.itmexicali.selfiegram.utils.ServerConn;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 public class MainAct extends Activity {
+	
+	private static Context m_context = null;
 
 	private GridView mDisplayingView;
 	
@@ -33,9 +36,16 @@ public class MainAct extends Activity {
     
     public static String Next_Input_Url = null;
     
+    public static Context getAppContext(){
+    	return m_context;
+    }
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		m_context = this.getApplicationContext();
+		
 		setContentView(R.layout.act_main);
 		
 		/* this works but it is Deprecated
@@ -143,10 +153,9 @@ public class MainAct extends Activity {
     		String inputJson = null;
 	    	try {
 				//inputJson = ServerConn.getResponse("http://yo-t.besaba.com/instagram_json.html");
-	    		inputJson = ServerConn.getResponse( Default_Input_Url + (Next_Input_Url==null? "" : Next_Input_Url) );
+	    		inputJson = ServerConn.shared().getResponse( Default_Input_Url + (Next_Input_Url==null? "":'&'+Next_Input_Url) );
 				Log.v(MainAct.class.getSimpleName(),"Response; chars: "+inputJson.length()+"\nText: "+inputJson);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return inputJson;

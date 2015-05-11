@@ -25,7 +25,7 @@ public class BitmapLoader {
 		Bitmap BitmapOrg = null;
 		InputStream is = null;
 		try {
-			is = ServerConn.Connect(-1, URL, null).getInputStream();
+			is = ServerConn.shared().openConnection(ServerConn.Method.GET, URL).getInputStream();
 			BitmapOrg = BitmapFactory.decodeStream(is);
 			bitmaps.put(URL, BitmapOrg);
 		} catch (Exception e) {
