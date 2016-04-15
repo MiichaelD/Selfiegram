@@ -1,5 +1,4 @@
 package com.webs.itmexicali.selfiegram.utils;
-//http://stackoverflow.com/questions/2793150/how-to-use-java-net-urlconnection-to-fire-and-handle-http-requests
 
 import com.webs.itmexicali.selfiegram.MainAct;
 
@@ -11,9 +10,7 @@ public class ServerConn extends server.ServerCom{
 
 	private static ServerConn instance;
 	
-	private ServerConn(){
-		
-	}
+	private ServerConn(){}
 	
 	public static ServerConn shared(){
 		if(instance == null){

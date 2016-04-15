@@ -44,33 +44,22 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
 	
 	@Override
     public View getView(int position, View convertView, ViewGroup parent) {
-       // Get the data item for this position
-		final String result = getItem(position);   
+		// In this example ViewHold pattern is not really needed since the view we 
+		// are receiving is actually just an ImageView and not a viewgroup (no need to findViewById())
 		
-		final boolean big = position % 3 == 0;
-		
-		final ViewHolder viewHolder;
+		ViewHolder viewHolder;
 		
        // Check if an existing view is being reused, otherwise inflate the view
        if (convertView == null) {
           convertView = LayoutInflater.from(getContext()).inflate(res_id, parent, false);
-          
-          viewHolder = new ViewHolder();
-          viewHolder.img = (ImageView) convertView;
+          viewHolder = new ViewHolder(convertView);
           convertView.setTag(viewHolder);
        } else {
     	   //if it was already reused 
            viewHolder = (ViewHolder) convertView.getTag();
        }
        // We change to a loding image bitmap, so it doesn't look like repeated images
-       viewHolder.img.setImageBitmap(BitmapLoader.getImage(ctx,
-     		  big?R.drawable.loading_big:R.drawable.loading_small,
-     		  true));
-       viewHolder.position = position;
-       
-       // Populate the data into the template view using the data object       
-       ImageDownloaderTask idt = new ImageDownloaderTask(ctx, viewHolder, position);
-       idt.execute(result,big?"BIG":null);
+       viewHolder.loadImage(position);
        
        // Return the completed view to render on screen
        return convertView;
@@ -79,9 +68,26 @@ public class CustomArrayAdapter extends ArrayAdapter<String>{
 	/** This class is used to improve performance, we should modify the custom adapter
 	 * by applying the ViewHolder pattern which speeds up the population of the
 	 * ListView considerably by caching view lookups for smoother, faster loading:*/
-	static class ViewHolder{
+	class ViewHolder{
 		ImageView img;
 		int position;
+		ViewHolder (View v){
+			img = (ImageView) v;
+		}
+		void loadImage(int position){
+			if (position != this.position){
+				this.position = position;
+				final boolean big = position % 3 == 0;
+				img.setImageBitmap(BitmapLoader.getImage(ctx,
+			     		  big?R.drawable.loading_big:R.drawable.loading_small,
+			     		  true));
+				// Populate the data into the template view using the data object       
+		       ImageDownloaderTask idt = new ImageDownloaderTask(ctx, this, position);
+		       idt.execute(getItem(position),big?"BIG":null);
+			}
+		}
+		
+		
 	}
 
 }
